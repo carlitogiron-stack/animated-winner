@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InclusiApp TDAH - Sede María Luisa Román (I.E. Julia Restrepo)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white shadow-md">
+                        <i data-lucide="brain-circuit" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-900 leading-tight">InclusiApp PIAR TDA/TDAH</h1>
+                        <p class="text-xs text-indigo-600 font-medium">Sede María Luisa Román • I.E. Julia Restrepo (Tuluá)</p>
+                    </div>
+                </div>
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Dashboard
+                    </button>
+                    <button onclick="switchTab('recursos')" id="nav-recursos" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-medium transition flex items-center gap-2 bg-indigo-50 text-indigo-700">
+                        <i data-lucide="book-open" class="w-4 h-4"></i> Banco de Recursos
+                    </button>
+                    <button onclick="switchTab('herramientas')" id="nav-herramientas" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="timer" class="w-4 h-4"></i> Herramientas de Aula
+                    </button>
+                    <button onclick="switchTab('simat')" id="nav-simat" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="clipboard-list" class="w-4 h-4"></i> Seguimiento y Bitácora
+                    </button>
+                    <button onclick="switchTab('orientaciones')" id="nav-orientaciones" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-medium transition flex items-center gap-2 text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="compass" class="w-4 h-4"></i> Guía Docente
+                    </button>
+                </nav>
+                <!-- Mobile menu button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchTab('dashboard'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Dashboard Institucional</button>
+            <button onclick="switchTab('recursos'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Banco de Recursos</button>
+            <button onclick="switchTab('herramientas'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Herramientas de Aula</button>
+            <button onclick="switchTab('simat'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Seguimiento y Bitácora</button>
+            <button onclick="switchTab('orientaciones'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-100">Guía Docente</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- TAB NUEVA: DASHBOARD ESTADÍSTICO INSTITUCIONAL -->
+        <section id="tab-dashboard" class="tab-content hidden space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-900">Dashboard Estadístico de Caracterización PIAR / SIMAT</h2>
+                <p class="text-slate-600 text-sm">Resumen institucional de estudiantes con TDA/TDAH registrados en la Sede María Luisa Román.</p>
+            </div>
+
+            <!-- Métricas Clave -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Total Caracterizados</p>
+                        <h3 class="text-3xl font-extrabold text-indigo-600 mt-1" id="dash-total-students">0</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Grados 4° y 5°</p>
+                    </div>
+                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Bitácoras Activas</p>
+                        <h3 class="text-3xl font-extrabold text-emerald-600 mt-1" id="dash-active-logs">0</h3>
+                        <p class="text-xs text-emerald-600 font-medium mt-0.5" id="dash-logs-pct">0% con seguimiento</p>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Mayor Subtipo</p>
+                        <h3 class="text-lg font-bold text-amber-600 mt-1 truncate max-w-[140px]" id="dash-main-diag">Inatento</h3>
+                        <p class="text-xs text-slate-400 mt-0.5" id="dash-main-diag-count">0 estudiantes</p>
+                    </div>
+                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="brain" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Notas Registradas</p>
+                        <h3 class="text-3xl font-extrabold text-purple-600 mt-1" id="dash-total-notes">0</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">En bitácoras cualitativas</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="message-square" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos Estadísticos / Grids -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Distribución por Grado -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                        <i data-lucide="graduation-cap" class="w-5 h-5 text-indigo-600"></i> Distribución por Grado
+                    </h3>
+                    <div id="dash-grade-bars" class="space-y-3">
+                        <!-- Generado dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Distribución por Diagnóstico TDA/TDAH -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                        <i data-lucide="pie-chart" class="w-5 h-5 text-indigo-600"></i> Distribución por Caracterización Diagnóstica
+                    </h3>
+                    <div id="dash-diag-bars" class="space-y-3">
+                        <!-- Generado dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 1: BANCO DE RECURSOS Y AJUSTES PIAR -->
+        <section id="tab-recursos" class="tab-content space-y-6">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-indigo-900 to-indigo-700 rounded-2xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="space-y-3 max-w-2xl">
+                    <span class="inline-block px-3 py-1 bg-indigo-500/30 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide text-indigo-200 uppercase">Grados 4° y 5° Primaria</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold">Ajustes Razonables y Estrategias Pedagógicas</h2>
+                    <p class="text-indigo-100 text-sm leading-relaxed">
+                        Explora actividades adaptadas por asignatura y síntoma para responder eficazmente a las metas del Plan Individual de Ajustes Razonables (PIAR).
+                    </p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 text-center min-w-[200px]">
+                    <div class="text-3xl font-extrabold text-white" id="stat-count">0</div>
+                    <div class="text-xs text-indigo-200 font-medium">Estrategias registradas</div>
+                </div>
+            </div>
+
+            <!-- Filtros de búsqueda -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Búsqueda General -->
+                    <div class="relative">
+                        <i data-lucide="search" class="w-5 h-5 absolute left-3 top-3 text-slate-400"></i>
+                        <input type="text" id="search-input" onkeyup="filterActivities()" placeholder="Buscar palabra clave (ej. fracciones, lecturas)..." class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                    </div>
+                    <!-- Filtro Asignatura -->
+                    <div>
+                        <select id="filter-subject" onchange="filterActivities()" class="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                            <option value="todos">Todas las Asignaturas</option>
+                            <option value="Matemáticas">Matemáticas</option>
+                            <option value="Lengua Castellana">Lengua Castellana</option>
+                            <option value="Ciencias Naturales">Ciencias Naturales</option>
+                            <option value="Ciencias Sociales">Ciencias Sociales</option>
+                            <option value="Convivencia / General">Convivencia / Autonomía</option>
+                        </select>
+                    </div>
+                    <!-- Filtro Foco TDAH -->
+                    <div>
+                        <select id="filter-focus" onchange="filterActivities()" class="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                            <option value="todos">Todas las Presentaciones TDA/TDAH</option>
+                            <option value="TDA (Predominio Inatento)">TDA (Predominio Inatento)</option>
+                            <option value="TDAH (Predominio Hiperactivo/Impulsivo)">TDAH (Predominio Hiperactivo/Impulsivo)</option>
+                            <option value="TDAH Combinado">TDAH Combinado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid de Actividades -->
+            <div id="activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- TAB 2: HERRAMIENTAS DE AULA Y AUTORREGULACIÓN -->
+        <section id="tab-herramientas" class="tab-content hidden space-y-8">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-2xl font-bold text-slate-900">Herramientas de Autorregulación en Aula</h2>
+                <p class="text-slate-600 text-sm">Gestiona los tiempos de trabajo y pausas sensoriales directas para estudiantes con TDAH.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Temporizador Visual Pomodoro Adaptado -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6 flex flex-col justify-between lg:col-span-1">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Gestión del Tiempo</span>
+                            <i data-lucide="clock" class="w-5 h-5 text-indigo-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Temporizador Visual Adaptado</h3>
+                        <p class="text-xs text-slate-500 mt-1">Fragmenta el trabajo en bloques cortos para evitar la fatiga cognitiva.</p>
+                    </div>
+
+                    <div class="text-center py-4">
+                        <div class="inline-flex items-center justify-center w-40 h-40 rounded-full border-8 border-indigo-500 bg-indigo-50 text-indigo-900 font-extrabold text-4xl shadow-inner tracking-tight" id="timer-display">
+                            15:00
+                        </div>
+                        <p id="timer-status" class="mt-4 text-xs font-semibold text-slate-600">Listo para iniciar bloque de enfoque</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-center gap-1.5">
+                            <button onclick="setTimerPreset(10)" class="px-2.5 py-1.5 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium hover:bg-slate-200">10 min</button>
+                            <button onclick="setTimerPreset(15)" class="px-2.5 py-1.5 bg-indigo-100 text-indigo-700 rounded-lg text-xs font-medium hover:bg-indigo-200">15 min</button>
+                            <button onclick="setTimerPreset(5)" class="px-2.5 py-1.5 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-medium hover:bg-emerald-200">5 min</button>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button id="btn-start-timer" onclick="toggleTimer()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-xl text-sm transition flex items-center justify-center gap-2">
+                                <i data-lucide="play" class="w-4 h-4"></i> Iniciar
+                            </button>
+                            <button onclick="resetTimer()" class="px-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium py-2 rounded-xl text-sm transition">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 PAUSAS ACTIVAS ESTRUCTURADAS CON TEMPORIZADOR INTEGRADO -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md space-y-6 lg:col-span-2">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Regulación Sensorial y Motora</span>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2">Módulo de 4 Pausas Activas Guiadas</h3>
+                        </div>
+                        <i data-lucide="activity" class="w-6 h-6 text-emerald-600"></i>
+                    </div>
+
+                    <!-- Selector de Pausas (Las 4 pausas) -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button onclick="selectActivePause(0)" id="pause-btn-0" class="pause-tab-btn p-3 text-left border rounded-xl bg-emerald-50 border-emerald-500 text-emerald-900 font-semibold text-xs">
+                            1. Respiración & Mindfulness
+                        </button>
+                        <button onclick="selectActivePause(1)" id="pause-btn-1" class="pause-tab-btn p-3 text-left border rounded-xl border-slate-200 text-slate-600 font-semibold text-xs hover:bg-slate-50">
+                            2. Movimiento & Coordinación
+                        </button>
+                        <button onclick="selectActivePause(2)" id="pause-btn-2" class="pause-tab-btn p-3 text-left border rounded-xl border-slate-200 text-slate-600 font-semibold text-xs hover:bg-slate-50">
+                            3. Estiramiento Consciente
+                        </button>
+                        <button onclick="selectActivePause(3)" id="pause-btn-3" class="pause-tab-btn p-3 text-left border rounded-xl border-slate-200 text-slate-600 font-semibold text-xs hover:bg-slate-50">
+                            4. Coordinación Rítmica
+                        </button>
+                    </div>
+
+                    <!-- Visor de la Pausa Seleccionada -->
+                    <div id="pause-viewer" class="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span id="pause-category" class="text-xs font-bold uppercase text-emerald-600">Mindfulness / Autorregulación</span>
+                                <h4 id="pause-title" class="text-lg font-bold text-slate-900">Respiración Guiada 4-7-8</h4>
+                            </div>
+                            <span id="pause-duration" class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full">2 Minutos</span>
+                        </div>
+                        
+                        <div id="pause-steps" class="text-xs text-slate-600 space-y-2">
+                            <!-- Pasos inyectados por JS -->
+                        </div>
+
+                        <!-- Temporizador de la Pausa Activa -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm" id="pause-timer-display">
+                                    02:00
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-900" id="pause-timer-status">Temporizador de Pausa</p>
+                                    <p class="text-[11px] text-slate-500">Haz clic en Iniciar Pausa para guiar al grupo</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 w-full sm:w-auto">
+                                <button id="btn-start-pause-timer" onclick="togglePauseTimer()" class="flex-1 sm:flex-initial px-4 py-2 bg-emerald-600 text-white text-xs font-semibold rounded-lg hover:bg-emerald-700 transition">
+                                    Iniciar Pausa
+                                </button>
+                                <button onclick="resetPauseTimer()" class="px-3 py-2 bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-300">
+                                    Reiniciar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: SEGUIMIENTO Y BITÁCORA DOCENTE DE ESTUDIANTES -->
+        <section id="tab-simat" class="tab-content hidden space-y-6">
+            <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">PIAR & SIMAT</span>
+                        <span class="text-xs text-slate-500 font-medium">Sede María Luisa Román</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">Cuaderno Digital de Seguimiento y Bitácoras</h2>
+                    <p class="text-slate-600 text-sm">Registro cualitativo colaborativo entre docentes de aula, orientación y profesionales de apoyo.</p>
+                </div>
+                <button onclick="openStudentModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-sm shrink-0">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i> Registrar Nuevo Estudiante
+                </button>
+            </div>
+
+            <!-- Filtros rápidos en seguimiento -->
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-3">
+                <div class="relative w-full sm:w-72">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                    <input type="text" id="search-student-input" onkeyup="filterStudents()" placeholder="Buscar estudiante o SIMAT..." class="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <select id="filter-student-grade" onchange="filterStudents()" class="px-3 py-2 border border-slate-300 rounded-lg text-xs bg-white text-slate-700 font-medium">
+                        <option value="todos">Todos los Grados</option>
+                        <option value="4° Cuarto">4° Cuarto</option>
+                        <option value="5° Quinto">5° Quinto</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tabla / Tarjetas de Estudiantes Registrados -->
+            <div id="students-list" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- TAB 4: GUÍA PRÁCTICA Y ORIENTACIONES DOCENTES -->
+        <section id="tab-orientaciones" class="tab-content hidden space-y-8">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-full">Marco Orientador PIAR</span>
+                    <span class="text-xs text-slate-500 font-medium">Decreto 1421 de 2017</span>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900 mt-1">Guía Práctica e Inclusión Institucional</h2>
+                <p class="text-slate-600 text-sm">Pautas de acondicionamiento de aula, mediación directa y normativa nacional para docentes de la Sede María Luisa Román.</p>
+            </div>
+
+            <!-- Grid de Módulos Orientadores -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Módulo 1: Acondicionamiento del Entorno -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
+                            <i data-lucide="layout-grid" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">1. Organización Física del Aula</h3>
+                            <p class="text-xs text-slate-500">Optimizando el ambiente de aprendizaje</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2.5 text-xs text-slate-700">
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Ubicación Preferencial:</strong> Sentar al estudiante cerca del docente y lejos de distracciones directas (ventanas principales, pasillos o ventiladores ruidosos).</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Emparejamiento Estratégico:</strong> Ubicarlo al lado de un compañero tutor que sea modelo de autorregulación y atención organizada.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Mesa Limpia:</strong> Mantener en la mesa únicamente el material necesario para la actividad en curso.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Módulo 2: Estructuración de las Clases -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                            <i data-lucide="list-checks" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">2. Estructuración y Rutinas</h3>
+                            <p class="text-xs text-slate-500">Predicibilidad para disminuir la ansiedad</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2.5 text-xs text-slate-700">
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Agenda Visual en Tablero:</strong> Escribir al inicio de la jornada la secuencia de actividades (ej. 1. Lectura -> 2. Ejercicio -> 3. Pausa).</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Instrucciones 'Paso a Paso':</strong> Entregar consignas de forma fragmentada (máximo 2 pasos a la vez), solicitando verificación de comprensión.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Avisos de Transición:</strong> Avisar 5 minutos antes de cambiar de actividad o concluir el tiempo de trabajo.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Módulo 3: Mediación Pedagógica y Evaluaciones PIAR -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+                            <i data-lucide="file-check" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">3. Evaluaciones y Flexibilización PIAR</h3>
+                            <p class="text-xs text-slate-500">Valorando el proceso sobre el producto</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2.5 text-xs text-slate-700">
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Tiempo Adicional:</strong> Conceder entre un 20% y 30% más de tiempo o fraccionar los exámenes en dos sesiones.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Formatos Diversos:</strong> Permitir sustentaciones orales, mapas conceptuales o representaciones gráficas en sustitución de extensas pruebas escritas.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Monitoreo de Fatiga:</strong> Si se observan signos marcados de distracción, aplicar una pausa activa de 1 minuto antes de continuar.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Módulo 4: Marco Normativo Colombiano (Decreto 1421) -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
+                            <i data-lucide="scale" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">4. Marco Legal e Institucional</h3>
+                            <p class="text-xs text-slate-500">Educación Inclusiva y Clasificación SIMAT</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2.5 text-xs text-slate-700">
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Decreto 1421 de 2017:</strong> Reglamenta la atención educativa a la población con discapacidad y neurodivergencias mediante el DUA y PIAR. Enfocado en la eliminación de barreras para el aprendizaje.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Actualización de Términos (DSM-5 / SIMAT):</strong> El Decreto prioriza el reporte oportuno. Clínicamente el término genérico 'TDA' se clasifica en el marco del <em>TDAH - Presentación Inatenta</em>. La herramienta incorpora las tres presentaciones oficiales (Inatenta, Hiperactiva/Impulsiva y Combinada).</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-purple-600 shrink-0 mt-0.5"></i>
+                            <span><strong>Plan de Apoyo Institucional:</strong> Trabajo articulado entre el docente de aula de la Sede María Luisa Román, docente orientador y la familia.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Protocolo de Manejo de Inatención / Crisis Breve -->
+            <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 rounded-2xl shadow-md space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold">
+                        <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-white">Protocolo Rápido de Contención Sensorial</h3>
+                        <p class="text-xs text-indigo-200">Recomendaciones frente a momentos de inquietud o frustración</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/10 space-y-1">
+                        <h4 class="font-bold text-indigo-300">Paso 1: Pausa Emocional</h4>
+                        <p class="text-slate-200">Mantener un tono de voz bajo y pausado. Evitar discutir o confrontar frente al grupo.</p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/10 space-y-1">
+                        <h4 class="font-bold text-indigo-300">Paso 2: Asignación Funcional</h4>
+                        <p class="text-slate-200">Ofrecer un encargo corto fuera de la silla (ej. 'Lleva este recado a secretaría' o 'Borra el tablero').</p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/10 space-y-1">
+                        <h4 class="font-bold text-indigo-300">Paso 3: Reencuadre</h4>
+                        <p class="text-slate-200">Retomar la tarea fraccionada reconociendo de forma explícita el esfuerzo realizado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Modal Detalle y Bitácora de Observaciones del Estudiante -->
+    <div id="bitacora-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-5 shadow-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-start border-b border-slate-100 pb-3">
+                <div>
+                    <span id="bit-student-grade" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full"></span>
+                    <h3 id="bit-student-name" class="font-bold text-xl text-slate-900 mt-2"></h3>
+                    <p id="bit-student-simat" class="text-xs text-slate-500"></p>
+                </div>
+                <button onclick="closeBitacoraModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="overflow-y-auto space-y-4 pr-1 custom-scrollbar flex-1">
+                <!-- Diagnóstico y Ajuste Principal -->
+                <div class="bg-indigo-50/50 border border-indigo-100 p-4 rounded-xl text-xs space-y-1">
+                    <p class="font-semibold text-indigo-950">Diagnóstico TDA/TDAH: <span id="bit-student-diag" class="font-normal text-slate-700"></span></p>
+                    <p class="font-semibold text-indigo-950">Ajuste Razonable PIAR: <span id="bit-student-adjustment" class="font-normal text-slate-700"></span></p>
+                </div>
+
+                <!-- Formulario Nueva Nota de Bitácora -->
+                <form id="bitacora-form" onsubmit="addBitacoraNote(event)" class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                    <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                        <i data-lucide="pen-tool" class="w-4 h-4 text-indigo-600"></i> Nueva Observación de Avance / Bitácora
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Autor de la Observación</label>
+                            <select id="bit-author" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white">
+                                <option value="Docente de Aula">Docente de Aula</option>
+                                <option value="Profesional de Apoyo">Profesional de Apoyo / PIAR</option>
+                                <option value="Docente Orientador">Docente Orientador</option>
+                                <option value="Directivo Docente">Directivo Docente</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nivel de Avance</label>
+                            <select id="bit-level" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white">
+                                <option value="Avance Positivo">Avance Positivo / Goal Alcanzado</option>
+                                <option value="En Proceso">En Proceso / Requiere Ajuste</option>
+                                <option value="Dificultad Observada">Dificultad Puntual Observada</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1 text-xs">Detalle Cualitativo de la Observación</label>
+                        <textarea id="bit-note" rows="2" required placeholder="Escriba las observaciones del comportamiento, atención o cumplimiento de metas PIAR..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs bg-white"></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-semibold hover:bg-indigo-700">Guardar en Bitácora</button>
+                    </div>
+                </form>
+
+                <!-- Histórico de Notas de Bitácora -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                        <i data-lucide="history" class="w-4 h-4 text-slate-600"></i> Historial de Bitácora del Estudiante
+                    </h4>
+                    <div id="bitacora-notes-list" class="space-y-2">
+                        <!-- Inyectado por JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-2 flex justify-end border-t border-slate-100">
+                <button onclick="closeBitacoraModal()" class="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs hover:bg-slate-800">Cerrar Bitácora</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Registro Estudiante PIAR -->
+    <div id="student-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-lg text-slate-900">Nueva Ficha PIAR / SIMAT</h3>
+                <button onclick="closeStudentModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <form id="student-form" onsubmit="saveStudent(event)" class="space-y-3 text-sm">
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">Nombre del Estudiante</label>
+                    <input type="text" id="st-name" required placeholder="Ej. Juan Pérez" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1">Grado</label>
+                        <select id="st-grade" class="w-full px-3 py-2 border border-slate-300 rounded-lg">
+                            <option value="4° Cuarto">4° Cuarto</option>
+                            <option value="5° Quinto">5° Quinto</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1">Código SIMAT</label>
+                        <input type="text" id="st-simat" required placeholder="N° de Registro" class="w-full px-3 py-2 border border-slate-300 rounded-lg">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1">Fecha de Nacimiento</label>
+                        <input type="date" id="st-birthdate" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-xs">
+                    </div>
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1">Diagnóstico / Condición</label>
+                        <select id="st-diag" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs">
+                            <option value="TDA (Predominio Inatento)">TDA (Predominio Inatento)</option>
+                            <option value="TDAH (Predominio Hiperactivo/Impulsivo)">TDAH (Predominio Hiperactivo)</option>
+                            <option value="TDAH Combinado">TDAH Combinado</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">Ajuste Razonable Principal</label>
+                    <textarea id="st-adjustment" rows="2" placeholder="Ej. Tiempo adicional en evaluaciones y pausas de movimiento cada 20 min." class="w-full px-3 py-2 border border-slate-300 rounded-lg"></textarea>
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeStudentModal()" class="px-4 py-2 border rounded-lg text-slate-600 hover:bg-slate-50">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Guardar Ficha</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Detalle Actividad -->
+    <div id="activity-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-start border-b border-slate-100 pb-3">
+                <div>
+                    <span id="act-modal-subject" class="text-xs font-bold text-indigo-600 uppercase bg-indigo-50 px-2.5 py-1 rounded-full"></span>
+                    <h3 id="act-modal-title" class="font-bold text-xl text-slate-900 mt-2"></h3>
+                </div>
+                <button onclick="closeActivityModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="space-y-3 text-sm text-slate-700">
+                <div>
+                    <h4 class="font-semibold text-slate-900">Propósito Pedagógico PIAR:</h4>
+                    <p id="act-modal-purpose" class="text-slate-600"></p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-slate-900">Paso a paso de la Actividad Adaptada:</h4>
+                    <p id="act-modal-steps" class="text-slate-600 whitespace-pre-line"></p>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl">
+                    <h4 class="font-semibold text-amber-900 flex items-center gap-1.5"><i data-lucide="lightbulb" class="w-4 h-4"></i> Tips de Mediación Docente:</h4>
+                    <p id="act-modal-tips" class="text-amber-800 text-xs mt-1"></p>
+                </div>
+            </div>
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeActivityModal()" class="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+            <p class="font-medium text-slate-700">Institución Educativa Julia Restrepo • Sede María Luisa Román</p>
+            <p>Herramienta Tecno-Pedagógica de Apoyo a los Ajustes Razonables (PIAR/SIMAT) - Tuluá, Valle del Cauca</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Data Store: Banco de Actividades Adaptadas Estratificadas por Asignatura y Presentación TDA/TDAH
+        const activitiesData = [
+            // --- MATEMÁTICAS ---
+            {
+                id: 1,
+                title: "Matemáticas en Bloques Visuales y Fichas",
+                subject: "Matemáticas",
+                focus: "TDA (Predominio Inatento)",
+                summary: "Reducción de estímulos visuales fraccionando guías complejas de operaciones en fichas de 2 ejercicios.",
+                purpose: "Prevenir la saturación atencional e impedir la omisión involuntaria de pasos en algoritmos matemáticos.",
+                steps: "1. Entrega la guía fraccionada en 3 módulos impresos independientemente.\n2. Incorpora una casilla de 'Revisión de Operación' antes de pasar a la siguiente ficha.\n3. Otorga 1 minuto de descompresión visual al entregar cada bloque resuelto.",
+                tips: "Resalta con color azul las sumas/restas y con rojo las multiplicaciones/divisiones para evitar confusiones por inatención."
+            },
+            {
+                id: 2,
+                title: "Matemáticas Kinestésicas con Material Concreto",
+                subject: "Matemáticas",
+                focus: "TDAH (Predominio Hiperactivo/Impulsivo)",
+                summary: "Resolución de problemas de fraccionarios y geometría mediante manipulación física de bloques o ábacos.",
+                purpose: "Canalizar la alta inquietud motora convirtiendo el movimiento de manos en herramienta de aprendizaje activo.",
+                steps: "1. Asigna el uso de regletas o bloques lógicos sobre la mesa de trabajo en lugar de lápiz y papel inmediato.\n2. Permite que el estudiante arme la solución de pie o se desplace al tablero para verificar resultados.\n3. Implementa conteos o secuencias rítmicas con palmadas para repasar tablas de multiplicar.",
+                tips: "Establece reglas claras: los bloques son para operar, no para lanzarse. Refuerza el autocontrol de manera positiva."
+            },
+            {
+                id: 3,
+                title: "Desafíos Matemáticos por Estaciones de Tiempo",
+                subject: "Matemáticas",
+                focus: "TDAH Combinado",
+                summary: "Estructuración de retos matemáticos de corta duración con temporizador visual e incentivos de avance.",
+                purpose: "Regular la impulsividad de respuesta y sostener el foco en estudiantes con hiperactividad e inatención simultánea.",
+                steps: "1. Coloca 3 estaciones de ejercicios en el aula. El estudiante dispone de 8 minutos por estación.\n2. Antes de escribir la respuesta final, debe realizar el 'Stop y Verifica' obligatoriamente.\n3. Al cumplir los 3 bloques, recibe la insignia de 'Analista Matemático'.",
+                tips: "Supervisa la primera estación directamente para asegurarte de que comprendió la consigna sin precipitarse."
+            },
+
+            // --- LENGUA CASTELLANA ---
+            {
+                id: 4,
+                title: "Comprensión Lectora con Guía Semafórica",
+                subject: "Lengua Castellana",
+                focus: "TDA (Predominio Inatento)",
+                summary: "Uso de tiras translúcidas de color para mantener el seguimiento de lectura línea por línea sin extravíos.",
+                purpose: "Evitar la pérdida del renglón y la dispersión mental durante comprensiones lectoras extensas.",
+                steps: "1. Facilita una regla semafórica translúcida para aislar el párrafo activo.\n2. Pide que subraye la idea principal con resaltador amarillo y los personajes con verde.\n3. Realiza micro-preguntas al final de cada párrafo en lugar de al concluir toda la lectura.",
+                tips: "Evita pedirle que lea en voz alta frente a todo el grupo de manera imprevista; acuerda la lectura previamente."
+            },
+            {
+                id: 5,
+                title: "Dramatización y Lectura Representada",
+                subject: "Lengua Castellana",
+                focus: "TDAH (Predominio Hiperactivo/Impulsivo)",
+                summary: "Asignación de roles en diálogos teatrales o lecturas dramatizadas con expresión corporal.",
+                purpose: "Convertir la inquietud motora e impulsividad verbal en interpretación dramática expresiva.",
+                steps: "1. Asigna personajes dinámicos de la historia que requieran cambios de voz o gestos físicos.\n2. Permite que el estudiante se levante para actuar las intervenciones del personaje asignado.\n3. Utiliza tarjetas de 'Pausa de Guion' para regular los turnos de intervención sin interrumpir a los demás.",
+                tips: "Supervisa que no acelere excesivamente el ritmo de la lectura dramatizada, marcando pausas rítmicas."
+            },
+            {
+                id: 6,
+                title: "Taller de Redacción con Mapas Ideográficos",
+                subject: "Lengua Castellana",
+                focus: "TDAH Combinado",
+                summary: "Planificación de producciones escritas usando esquemas visuales antes de redactar el texto final.",
+                purpose: "Organizar las funciones ejecutivas, frenar la impulsividad narrativa y enfocar la atención en la estructura textual.",
+                steps: "1. El estudiante completa el organizador visual: ¿Quién? ¿Dónde? ¿Qué problema ocurre? ¿Cómo finaliza?\n2. Revisa el mapa ideográfico con el docente antes de iniciar la escritura del borrador.\n3. Redacta párrafos de 3 oraciones usando la lista de chequeo de puntuación (puntos y mayúsculas).",
+                tips: "Permite el uso de dictado al docente o grabadora de voz en el primer borrador para destrabar la frustración de escritura."
+            },
+
+            // --- CIENCIAS NATURALES ---
+            {
+                id: 7,
+                title: "Guías de Observación con Iconos de Pasos",
+                subject: "Ciencias Naturales",
+                focus: "TDA (Predominio Inatento)",
+                summary: "Diagramación de prácticas de laboratorio y experimentos con secuencias pictóricas claras.",
+                purpose: "Guiar la memoria de trabajo impidiendo el olvido de materiales o pasos en procedimientos científicos.",
+                steps: "1. Entrega la guía del experimento acompañada de íconos (Ej: 1. Mirar -> 2. Medir -> 3. Anotar).\n2. Pide al estudiante marcar un check en cada fase terminada.\n3. Asigna un compañero de apoyo que verifique el registro de datos.",
+                tips: "Elimina objetos innecesarios de la mesa de laboratorio para evitar distracción antes de iniciar la observación."
+            },
+            {
+                id: 8,
+                title: "Investigador Móvil de Campo y Muestreo",
+                subject: "Ciencias Naturales",
+                focus: "TDAH (Predominio Hiperactivo/Impulsivo)",
+                summary: "Rol de recolección de muestras biológicas y gestión de materiales de campo en el colegio.",
+                purpose: "Canalizar la energía física de manera productiva alineada con los objetivos de aprendizaje de ciencias.",
+                steps: "1. Nombra al estudiante Encargado Oficial de Distribución y Recolección de lupas y muestras.\n2. En salidas al jardín o patio, asígnale la tarea de fotografiar o registrar elementos en movimiento.\n3. Define límites físicos claros para los desplazamientos durante la observación.",
+                tips: "Recuérdale el protocolo de cuidado de seres vivos e instrumentos frágiles antes de salir del aula."
+            },
+            {
+                id: 9,
+                title: "Experimentos Interactivos de Hipótesis Rápida",
+                subject: "Ciencias Naturales",
+                focus: "TDAH Combinado",
+                summary: "Prácticas de causa-efecto con predicción previa obligatoria en tarjeta de registro.",
+                purpose: "Frenar la precipitación de manipulación y enfocar la atención en el método científico sistemático.",
+                steps: "1. Muestra los reactivos o materiales sin tocarlos aún.\n2. El estudiante debe escribir su predicción en la tarjeta '¿Qué creo que pasará?' antes de actuar.\n3. Realiza la prueba y compara la predicción con el resultado real.",
+                tips: "Valora la validez de su razonamiento más allá de si la predicción inicial fue acertada o no."
+            },
+
+            // --- CIENCIAS SOCIALES ---
+            {
+                id: 10,
+                title: "Fichas Históricas de Puntos Clave",
+                subject: "Ciencias Sociales",
+                focus: "TDA (Predominio Inatento)",
+                summary: "Resumen de unidades de geografía e historia en tarjetas sintéticas con organizadores gráficos.",
+                purpose: "Facilitar el procesamiento de textos informativos densos evitando la fatiga de atención.",
+                steps: "1. Proporciona resúmenes de no más de 150 palabras enriquecidos con ilustraciones o mapas temáticos.\n2. Incluye preguntas directas de opción múltiple al reverso de la ficha.\n3. Permite consultar la ficha durante los conversatorios grupales.",
+                tips: "Utiliza negritas en las fechas y nombres propios para facilitar la búsqueda visual rápida."
+            },
+            {
+                id: 11,
+                title: "Líneas del Tiempo Dinámicas en Cuerda",
+                subject: "Ciencias Sociales",
+                focus: "TDAH (Predominio Hiperactivo/Impulsivo)",
+                summary: "Construcción física colaborativa de la secuencia histórica colgando eventos en un cordón en el aula.",
+                purpose: "Involucrar la motricidad gruesa en la comprensión de la temporalidad histórica y la sucesión de hechos.",
+                steps: "1. Entrega al estudiante las tarjetas de eventos históricos con ganchos de ropa.\n2. Pide que se desplace a lo largo de la línea del tiempo instalada en la pared para posicionar su evento.\n3. Explica verbalmente la razón de la ubicación del suceso histórico al resto del grupo.",
+                tips: "Asigna turnos claros si hay más estudiantes participando para trabajar el respeto por el espacio ajeno."
+            },
+            {
+                id: 12,
+                title: "Debates de Roles Geográficos e Históricos",
+                subject: "Ciencias Sociales",
+                focus: "TDAH Combinado",
+                summary: "Juegos de rol tipo simulación de personajes históricos o autoridades regionales con paletas de habla.",
+                purpose: "Estructurar la participación espontánea, sostener la escucha activa y afianzar conceptos sociales.",
+                steps: "1. Asigna un personaje o comunidad (ej. Agricultor, Alcalde, Historiador) con una postura clara.\n2. Entrega la paleta de 'Uso de la Palabra' que sólo puede elevar cuando le corresponda intervenir.\n3. Concede 1 minuto exacto para exponer su argumento sintetizado.",
+                tips: "Ofrece retroalimentación inmediata sobre su capacidad de escuchar a los compañeros durante la simulación."
+            },
+
+            // --- CONVIVENCIA Y AUTONOMÍA ---
+            {
+                id: 13,
+                title: "Planificador de Pupitre y Cuadernos",
+                subject: "Convivencia / General",
+                focus: "TDA (Predominio Inatento)",
+                summary: "Sistema de etiquetas de colores en la mesa y mochila para el ordenamiento de útiles escolares.",
+                purpose: "Desarrollar la autonomía en las funciones ejecutivas y prevenir la pérdida recurrente de materiales.",
+                steps: "1. Adhiere una guía visual al pupitre con las imágenes de los útiles requeridos para cada asignatura.\n2. Al finalizar la jornada, realiza la rutina de 3 minutos de 'Chequeo de Maleta'.\n3. Felicitación discreta cuando mantiene su espacio limpio al concluir el día.",
+                tips: "Evita sancionar u avergonzar al estudiante por extravíos; en su lugar, activa la rutina de búsqueda paso a paso."
+            },
+            {
+                id: 14,
+                title: "Carnet de 'Encargados de Aula' y Pausa Regulada",
+                subject: "Convivencia / General",
+                focus: "TDAH (Predominio Hiperactivo/Impulsivo)",
+                summary: "Uso de un carnet especial de movilidad autorizada para realizar gestiones breves fuera del salón.",
+                purpose: "Canalizar la inquietud motora extrema mediante desplazamientos con propósito pedagógico o administrativo.",
+                steps: "1. Cuando el estudiante experimenta sobreestimulación o inquietud severa, entrega el Carnet de Encargado.\n2. Solicítale llevar una carpeta o documento a la coordinación de la sede o a la sala de profesores.\n3. A su regreso, se reincorpora a la actividad con el nivel de activación motora autorregulado.",
+                tips: "Acuerda previamente este mecanismo con los directivos docentes para respaldar la estrategia PIAR."
+            },
+            {
+                id: 15,
+                title: "Contrato de Autogestión y Fichas de Autoevaluación",
+                subject: "Convivencia / General",
+                focus: "TDAH Combinado",
+                summary: "Acuerdo individual diario con metas sencillas de comportamiento y autorregulación escolar.",
+                purpose: "Promover la metacognición, el autocontrol y el autoreconocimiento de logros personales en el aula.",
+                steps: "1. Define 2 metas diarias realistas (Ej: 1. Levantar la mano para hablar -> 2. Iniciar la tarea en los primeros 3 min).\n2. Al final de la mañana, evalúa junto al estudiante el cumplimiento mediante un semáforo de caritas.\n3. Canjea los logros acumulados por privilegios del aula (ej. Elegir el juego del descanso).",
+                tips: "Las metas deben estar redactadas en positivo (lo que 'sí debe hacer') y no en términos de prohibición."
+            }
+        ];
+
+        // 4 PAUSAS ACTIVAS ESTRUCTURADAS Y CONFIGURADAS
+        const structuredPauses = [
+            {
+                id: 0,
+                category: "Mindfulness & Autorregulación",
+                title: "1. Respiración Cuadrada (Mindfulness 4x4)",
+                durationSec: 120,
+                durationText: "2 Minutos",
+                steps: [
+                    "1. Pedir a los estudiantes apoyar los dos pies firmes en el piso y la espalda recta.",
+                    "2. Inhalar aire despacio por la nariz durante 4 segundos mientras elevan suavemente las manos.",
+                    "3. Sostener el aire durante 4 segundos manteniendo los hombros relajados.",
+                    "4. Exhalar el aire por la boca en 4 segundos bajando los brazos lentos.",
+                    "5. Sostener sin aire 4 segundos y repetir la secuencia 3 veces."
+                ]
+            },
+            {
+                id: 1,
+                category: "Movimiento & Coordinación",
+                title: "2. Coordinación Cruzada (Patrón Cruzado)",
+                durationSec: 60,
+                durationText: "1 Minuto",
+                steps: [
+                    "1. Ponerse de pie al lado del pupitre con la vista al frente.",
+                    "2. Llevar la mano derecha a tocar la rodilla izquierda elevada.",
+                    "3. Cambiar alternadamente: mano izquierda toca la rodilla derecha.",
+                    "4. Realizar el movimiento a ritmo lento por 30 segundos y luego acelerar ligeramente.",
+                    "5. Finalizar con 3 saltos suaves en el puesto de pies juntos."
+                ]
+            },
+            {
+                id: 2,
+                category: "Estiramiento Consciente",
+                title: "3. El Estiramiento del Gato y el Sol",
+                durationSec: 120,
+                durationText: "2 Minutos",
+                steps: [
+                    "1. Estirar los brazos completamente hacia el techo intentando 'tocar el sol' durante 10 segundos.",
+                    "2. Inclinar la cabeza suavemente a la derecha y luego a la izquierda por 5 segundos cada lado.",
+                    "3. Redondear la espalda bajando los brazos despacio como un 'gato desperezándose'.",
+                    "4. Sacudir las manos y muñecas para liberar la tensión motora acumulada."
+                ]
+            },
+            {
+                id: 3,
+                category: "Coordinación Rítmica & Motor Fino",
+                title: "4. Secuencia Rítmica Manos-Mesa",
+                durationSec: 60,
+                durationText: "1 Minuto",
+                steps: [
+                    "1. Apoyar ambas palmas de las manos planas sobre el escritorio.",
+                    "2. Patrón Rítmico: Palmas a la mesa (1) -> Aplauso (2) -> Chasquido de dedos o puño suave (3).",
+                    "3. Repetir la secuencia rítmica 5 veces siguiendo el compás del docente.",
+                    "4. Ayuda a resetear los circuitos atencionales y estimula la atención focalizada."
+                ]
+            }
+        ];
+
+        // Array de Estudiantes en LocalStorage o Estado
+        let students = JSON.parse(localStorage.getItem('mlr_students')) || [
+            { 
+                id: 1, 
+                name: "Camilo Andrés López", 
+                grade: "4° Cuarto", 
+                simat: "10948231", 
+                birthdate: "2016-05-14",
+                diag: "TDAH Combinado", 
+                adjustment: "Uso de temporizador visual, guías divididas y pausas de 2 min.",
+                notes: [
+                    { id: 101, date: "2026-03-02", author: "Docente de Aula", level: "Avance Positivo", text: "Respondió adecuadamente a las actividades divididas en tarjetas en Matemáticas." },
+                    { id: 102, date: "2026-03-08", author: "Profesional de Apoyo", level: "En Proceso", text: "Se recomienda reforzar la pausa activa antes de las lecturas extensas." }
+                ]
+            },
+            { 
+                id: 2, 
+                name: "Mariana Restrepo", 
+                grade: "5° Quinto", 
+                simat: "10959321", 
+                birthdate: "2015-09-20",
+                diag: "TDA (Predominio Inatento)", 
+                adjustment: "Ubicación en fila central primera banca, refuerzo en guías de Lenguaje.",
+                notes: [
+                    { id: 201, date: "2026-03-05", author: "Docente Orientador", level: "Avance Positivo", text: "Mejora notable en el seguimiento de instrucciones mediante la regla de seguimiento visual." }
+                ]
+            }
+        ];
+
+        // Función auxiliar para calcular la edad exacta a partir de la fecha de nacimiento
+        function calculateAge(birthdateStr) {
+            if (!birthdateStr) return "N/A";
+            const birthDate = new Date(birthdateStr);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return isNaN(age) ? "N/A" : `${age} años`;
+        }
+
+        // Variables Temporizadores
+        let timerSeconds = 15 * 60;
+        let timerInterval = null;
+        let isTimerRunning = false;
+
+        let activePauseIndex = 0;
+        let pauseTimerSeconds = 120;
+        let pauseTimerInterval = null;
+        let isPauseTimerRunning = false;
+
+        let currentActiveStudentId = null;
+
+        // Inicialización de la App
+        window.onload = function() {
+            lucide.createIcons();
+            renderActivities(activitiesData);
+            renderStudents();
+            renderDashboard();
+            selectActivePause(0);
+            document.getElementById('stat-count').innerText = activitiesData.length;
+        };
+
+        // Menú móvil
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Navegación por Pestañas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-50', 'text-indigo-700');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-indigo-50', 'text-indigo-700');
+                activeNav.classList.remove('text-slate-600');
+            }
+
+            if (tabId === 'dashboard') {
+                renderDashboard();
+            }
+        }
+
+        // RENDERIZADO DE ACTIVIDADES PEDAGÓGICAS
+        function renderActivities(data) {
+            const grid = document.getElementById('activities-grid');
+            grid.innerHTML = '';
+
+            if (data.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400">No se encontraron actividades con los filtros seleccionados.</div>`;
+                return;
+            }
+
+            data.forEach(act => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4";
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">${act.subject}</span>
+                            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">${act.focus}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg leading-snug">${act.title}</h3>
+                        <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">${act.summary}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-medium text-amber-700 bg-amber-50 px-2 py-1 rounded-lg flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i> Ajuste PIAR
+                        </span>
+                        <button onclick="openActivityModal(${act.id})" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs rounded-xl transition flex items-center gap-1">
+                            Ver Ficha <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // FILTRADO DE ACTIVIDADES
+        function filterActivities() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const subject = document.getElementById('filter-subject').value;
+            const focus = document.getElementById('filter-focus').value;
+
+            const filtered = activitiesData.filter(act => {
+                const matchesQuery = act.title.toLowerCase().includes(query) || act.summary.toLowerCase().includes(query) || act.purpose.toLowerCase().includes(query);
+                const matchesSubject = subject === 'todos' || act.subject === subject;
+                const matchesFocus = focus === 'todos' || act.focus === focus;
+                return matchesQuery && matchesSubject && matchesFocus;
+            });
+
+            renderActivities(filtered);
+        }
+
+        // MODALES DE ACTIVIDADES Y ESTUDIANTES
+        function openActivityModal(id) {
+            const act = activitiesData.find(a => a.id === id);
+            if (!act) return;
+
+            document.getElementById('act-modal-subject').innerText = `${act.subject} • ${act.focus}`;
+            document.getElementById('act-modal-title').innerText = act.title;
+            document.getElementById('act-modal-purpose').innerText = act.purpose;
+            document.getElementById('act-modal-steps').innerText = act.steps;
+            document.getElementById('act-modal-tips').innerText = act.tips;
+
+            document.getElementById('activity-modal').classList.remove('hidden');
+        }
+
+        function closeActivityModal() {
+            document.getElementById('activity-modal').classList.add('hidden');
+        }
+
+        function openStudentModal() {
+            document.getElementById('student-modal').classList.remove('hidden');
+        }
+
+        function closeStudentModal() {
+            document.getElementById('student-modal').classList.add('hidden');
+        }
+
+        // TEMPORIZADOR VISUAL PRINCIPAL
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function setTimerPreset(mins) {
+            resetTimer();
+            timerSeconds = mins * 60;
+            updateTimerDisplay();
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('btn-start-timer');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Reanudar`;
+                document.getElementById('timer-status').innerText = "Bloque en pausa";
+            } else {
+                isTimerRunning = true;
+                btn.innerHTML = `<i data-lucide="pause" class="w-4 h-4"></i> Pausar`;
+                document.getElementById('timer-status').innerText = "¡Enfoque activo en progreso!";
+                timerInterval = setInterval(() => {
+                    if (timerSeconds > 0) {
+                        timerSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isTimerRunning = false;
+                        document.getElementById('timer-status').innerText = "¡Tiempo completado! Pasar a Pausa Activa.";
+                        btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Iniciar`;
+                    }
+                }, 1000);
+            }
+            lucide.createIcons();
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            timerSeconds = 15 * 60;
+            updateTimerDisplay();
+            document.getElementById('timer-status').innerText = "Listo para iniciar bloque de enfoque";
+            const btn = document.getElementById('btn-start-timer');
+            btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Iniciar`;
+            lucide.createIcons();
+        }
+
+        // RENDERIZADO DEL DASHBOARD INSTITUCIONAL
+        function renderDashboard() {
+            const totalStudents = students.length;
+            document.getElementById('dash-total-students').innerText = totalStudents;
+
+            // Estudiantes con al menos 1 observación en bitácora
+            const studentsWithNotes = students.filter(s => s.notes && s.notes.length > 0);
+            const activeLogsCount = studentsWithNotes.length;
+            document.getElementById('dash-active-logs').innerText = activeLogsCount;
+
+            const pct = totalStudents > 0 ? Math.round((activeLogsCount / totalStudents) * 100) : 0;
+            document.getElementById('dash-logs-pct').innerText = `${pct}% con seguimiento activo`;
+
+            // Total de notas
+            let totalNotes = 0;
+            const diagCounts = {};
+            const gradeCounts = {};
+
+            students.forEach(s => {
+                const nLen = s.notes ? s.notes.length : 0;
+                totalNotes += nLen;
+
+                // Conteo por diagnóstico
+                diagCounts[s.diag] = (diagCounts[s.diag] || 0) + 1;
+
+                // Conteo por grado
+                gradeCounts[s.grade] = (gradeCounts[s.grade] || 0) + 1;
+            });
+
+            document.getElementById('dash-total-notes').innerText = totalNotes;
+
+            // Determinar diagnóstico prevalente
+            let mainDiag = "N/A";
+            let mainDiagCount = 0;
+            Object.keys(diagCounts).forEach(d => {
+                if (diagCounts[d] > mainDiagCount) {
+                    mainDiagCount = diagCounts[d];
+                    mainDiag = d;
+                }
+            });
+            document.getElementById('dash-main-diag').innerText = mainDiag;
+            document.getElementById('dash-main-diag-count').innerText = `${mainDiagCount} estudiante(s)`;
+
+            // Render Gráficos de barras por Grado
+            const gradeBarsContainer = document.getElementById('dash-grade-bars');
+            gradeBarsContainer.innerHTML = '';
+            const allGrades = ["4° Cuarto", "5° Quinto"];
+            allGrades.forEach(g => {
+                const count = gradeCounts[g] || 0;
+                const percentage = totalStudents > 0 ? (count / totalStudents) * 100 : 0;
+                gradeBarsContainer.innerHTML += `
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                            <span>Grado ${g}</span>
+                            <span>${count} estudiante(s) (${Math.round(percentage)}%)</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-indigo-600 h-3 rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Gráficos de barras por Diagnóstico
+            const diagBarsContainer = document.getElementById('dash-diag-bars');
+            diagBarsContainer.innerHTML = '';
+            const allDiags = ["TDA (Predominio Inatento)", "TDAH (Predominio Hiperactivo/Impulsivo)", "TDAH Combinado"];
+            allDiags.forEach(d => {
+                const count = diagCounts[d] || 0;
+                const percentage = totalStudents > 0 ? (count / totalStudents) * 100 : 0;
+                diagBarsContainer.innerHTML += `
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                            <span class="truncate max-w-[220px]">${d}</span>
+                            <span>${count} (${Math.round(percentage)}%)</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-3 rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // LÓGICA DEL MÓDULO DE 4 PAUSAS ACTIVAS
+        function selectActivePause(index) {
+            activePauseIndex = index;
+            const pause = structuredPauses[index];
+
+            // Actualizar pestañas activas
+            document.querySelectorAll('.pause-tab-btn').forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                    btn.classList.remove('border-slate-200', 'text-slate-600');
+                } else {
+                    btn.classList.remove('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
+                    btn.classList.add('border-slate-200', 'text-slate-600');
+                }
+            });
+
+            // Inyectar datos
+            document.getElementById('pause-category').innerText = pause.category;
+            document.getElementById('pause-title').innerText = pause.title;
+            document.getElementById('pause-duration').innerText = pause.durationText;
+
+            const stepsContainer = document.getElementById('pause-steps');
+            stepsContainer.innerHTML = pause.steps.map(step => `<p class="leading-relaxed">• ${step}</p>`).join('');
+
+            // Resetear temporizador de pausa
+            resetPauseTimer();
+        }
+
+        function updatePauseTimerDisplay() {
+            const mins = Math.floor(pauseTimerSeconds / 60);
+            const secs = pauseTimerSeconds % 60;
+            document.getElementById('pause-timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function togglePauseTimer() {
+            const btn = document.getElementById('btn-start-pause-timer');
+            if (isPauseTimerRunning) {
+                clearInterval(pauseTimerInterval);
+                isPauseTimerRunning = false;
+                btn.innerText = "Reanudar Pausa";
+                document.getElementById('pause-timer-status').innerText = "Pausa en suspenso";
+            } else {
+                isPauseTimerRunning = true;
+                btn.innerText = "Pausar";
+                document.getElementById('pause-timer-status').innerText = "¡Ejecutando Pausa Activa con el grupo!";
+                pauseTimerInterval = setInterval(() => {
+                    if (pauseTimerSeconds > 0) {
+                        pauseTimerSeconds--;
+                        updatePauseTimerDisplay();
+                    } else {
+                        clearInterval(pauseTimerInterval);
+                        isPauseTimerRunning = false;
+                        document.getElementById('pause-timer-status').innerText = "¡Pausa completada! Listos para retomar.";
+                        btn.innerText = "Iniciar Pausa";
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetPauseTimer() {
+            clearInterval(pauseTimerInterval);
+            isPauseTimerRunning = false;
+            pauseTimerSeconds = structuredPauses[activePauseIndex].durationSec;
+            updatePauseTimerDisplay();
+            document.getElementById('pause-timer-status').innerText = "Temporizador de Pausa";
+            document.getElementById('btn-start-pause-timer').innerText = "Iniciar Pausa";
+        }
+
+        // LÓGICA DE BITÁCORA Y REGISTRO DE ESTUDIANTES
+        function renderStudents(dataToRender = null) {
+            const container = document.getElementById('students-list');
+            container.innerHTML = '';
+
+            const listData = dataToRender || students;
+
+            if (listData.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-10 bg-white rounded-2xl border border-dashed border-slate-300 text-slate-400">No hay estudiantes registrados con los criterios seleccionados.</div>`;
+                return;
+            }
+
+            listData.forEach(st => {
+                const notes = st.notes || [];
+                const notesCount = notes.length;
+                const lastNote = notesCount > 0 ? notes[notes.length - 1] : null;
+                const ageText = calculateAge(st.birthdate);
+
+                let statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Con Seguimiento</span>`;
+                if (notesCount === 0) {
+                    statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">Sin Bitácora Aún</span>`;
+                }
+
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4";
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-start gap-2">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full">${st.grade}</span>
+                                    ${statusBadge}
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-lg mt-1 text-slate-900">${st.name}</h3>
+                                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 font-medium mt-0.5">
+                                    <span>SIMAT: <span class="text-slate-700 font-mono">${st.simat}</span></span>
+                                    <span>•</span>
+                                    <span>Edad: <span class="text-slate-800 font-semibold">${ageText}</span> (${st.birthdate || 'S/D'})</span>
+                                </div>
+                            </div>
+                            <button onclick="deleteStudent(${st.id})" class="text-slate-300 hover:text-red-500 transition p-1" title="Eliminar Ficha"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </div>
+                        
+                        <div class="text-xs space-y-2">
+                            <div class="flex items-center gap-1.5 text-slate-700">
+                                <i data-lucide="brain-circuit" class="w-4 h-4 text-indigo-500"></i>
+                                <span><strong class="text-slate-900">Diagnóstico:</strong> ${st.diag}</span>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-slate-600">
+                                <p class="font-semibold text-slate-900 mb-0.5 flex items-center gap-1">
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i> Ajuste PIAR Principal:
+                                </p>
+                                <p class="line-clamp-2">${st.adjustment}</p>
+                            </div>
+
+                            <!-- Último avance registrado -->
+                            ${lastNote ? `
+                                <div class="bg-indigo-50/50 p-3 rounded-xl border border-indigo-100/80 text-xs space-y-1">
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-semibold text-indigo-950 flex items-center gap-1"><i data-lucide="history" class="w-3 h-3 text-indigo-600"></i> Última Observación (${lastNote.date})</span>
+                                        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-white text-indigo-700 border border-indigo-200">${lastNote.level}</span>
+                                    </div>
+                                    <p class="text-slate-700 italic truncate">"${lastNote.text}"</p>
+                                    <p class="text-[10px] text-slate-400 text-right">— ${lastNote.author}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-500 flex items-center gap-1">
+                            <i data-lucide="message-square" class="w-3.5 h-3.5 text-indigo-600"></i> ${notesCount} Nota(s) de Bitácora
+                        </span>
+                        <button onclick="openBitacoraModal(${st.id})" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm">
+                            <i data-lucide="folder-open" class="w-3.5 h-3.5"></i> Ver y Añadir Bitácora
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Filtro en lista de estudiantes
+        function filterStudents() {
+            const query = document.getElementById('search-student-input').value.toLowerCase();
+            const grade = document.getElementById('filter-student-grade').value;
+
+            const filtered = students.filter(st => {
+                const matchesQuery = st.name.toLowerCase().includes(query) || st.simat.toLowerCase().includes(query) || st.diag.toLowerCase().includes(query);
+                const matchesGrade = grade === 'todos' || st.grade === grade;
+                return matchesQuery && matchesGrade;
+            });
+
+            renderStudents(filtered);
+        }
+
+        function openBitacoraModal(studentId) {
+            currentActiveStudentId = studentId;
+            const st = students.find(s => s.id === studentId);
+            if (!st) return;
+
+            const ageText = calculateAge(st.birthdate);
+            document.getElementById('bit-student-name').innerText = st.name;
+            document.getElementById('bit-student-grade').innerText = st.grade;
+            document.getElementById('bit-student-simat').innerText = `Código SIMAT: ${st.simat} • Nacimiento: ${st.birthdate || 'N/A'} (${ageText})`;
+            document.getElementById('bit-student-diag').innerText = st.diag;
+            document.getElementById('bit-student-adjustment').innerText = st.adjustment;
+
+            renderBitacoraNotes(st);
+            document.getElementById('bitacora-modal').classList.remove('hidden');
+        }
+
+        function closeBitacoraModal() {
+            document.getElementById('bitacora-modal').classList.add('hidden');
+            currentActiveStudentId = null;
+        }
+
+        function renderBitacoraNotes(student) {
+            const list = document.getElementById('bitacora-notes-list');
+            list.innerHTML = '';
+
+            if (!student.notes || student.notes.length === 0) {
+                list.innerHTML = `<div class="text-center py-4 text-xs text-slate-400 border border-dashed border-slate-200 rounded-xl">Sin observaciones registradas aún en la bitácora.</div>`;
+                return;
+            }
+
+            student.notes.slice().reverse().forEach(note => {
+                let badgeColor = "bg-emerald-50 text-emerald-700 border-emerald-200";
+                if (note.level === "En Proceso") badgeColor = "bg-amber-50 text-amber-700 border-amber-200";
+                if (note.level === "Dificultad Observada") badgeColor = "bg-rose-50 text-rose-700 border-rose-200";
+
+                const noteDiv = document.createElement('div');
+                noteDiv.className = "bg-white p-3 rounded-xl border border-slate-200 space-y-1 text-xs shadow-sm";
+                noteDiv.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-800">${note.author}</span>
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded border ${badgeColor}">${note.level}</span>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed">${note.text}</p>
+                    <div class="text-[10px] text-slate-400 text-right pt-1">${note.date}</div>
+                `;
+                list.appendChild(noteDiv);
+            });
+        }
+
+        function addBitacoraNote(e) {
+            e.preventDefault();
+            if (!currentActiveStudentId) return;
+
+            const st = students.find(s => s.id === currentActiveStudentId);
+            if (!st) return;
+
+            if (!st.notes) st.notes = [];
+
+            const newNote = {
+                id: Date.now(),
+                date: new Date().toISOString().split('T')[0],
+                author: document.getElementById('bit-author').value,
+                level: document.getElementById('bit-level').value,
+                text: document.getElementById('bit-note').value
+            };
+
+            st.notes.push(newNote);
+            localStorage.setItem('mlr_students', JSON.stringify(students));
+
+            document.getElementById('bit-note').value = '';
+            renderBitacoraNotes(st);
+            renderStudents();
+            renderDashboard();
+        }
+
+        function saveStudent(e) {
+            e.preventDefault();
+            try {
+                const nameEl = document.getElementById('st-name');
+                const gradeEl = document.getElementById('st-grade');
+                const simatEl = document.getElementById('st-simat');
+                const birthdateEl = document.getElementById('st-birthdate');
+                const diagEl = document.getElementById('st-diag');
+                const adjustmentEl = document.getElementById('st-adjustment');
+
+                const nameInput = nameEl ? nameEl.value.trim() : '';
+                const gradeInput = gradeEl ? gradeEl.value : '4° Cuarto';
+                const simatInput = simatEl ? simatEl.value.trim() : '';
+                const birthdateInput = birthdateEl ? birthdateEl.value : '';
+                const diagInput = diagEl ? diagEl.value : 'TDA (Predominio Inatento)';
+                const adjustmentInput = adjustmentEl ? adjustmentEl.value.trim() : '';
+
+                if (!nameInput || !simatInput || !birthdateInput) {
+                    alert('Por favor complete los campos obligatorios: Nombre, Código SIMAT y Fecha de Nacimiento.');
+                    return;
+                }
+
+                const newSt = {
+                    id: Date.now(),
+                    name: nameInput,
+                    grade: gradeInput,
+                    simat: simatInput,
+                    birthdate: birthdateInput,
+                    diag: diagInput,
+                    adjustment: adjustmentInput || "Sin ajuste razonable inicial registrado.",
+                    notes: []
+                };
+
+                // Asegurar array de estudiantes
+                if (!Array.isArray(students)) {
+                    students = [];
+                }
+
+                students.push(newSt);
+                localStorage.setItem('mlr_students', JSON.stringify(students));
+                
+                // Limpiar formulario y cerrar modal
+                const form = document.getElementById('student-form');
+                if (form) form.reset();
+                closeStudentModal();
+
+                // Re-renderizar vistas actualizadas en tiempo real
+                renderStudents();
+                renderDashboard();
+            } catch (err) {
+                console.error("Error guardando ficha de estudiante:", err);
+            }
+        }
+
+        function deleteStudent(id) {
+            students = students.filter(s => s.id !== id);
+            localStorage.setItem('mlr_students', JSON.stringify(students));
+            renderStudents();
+            renderDashboard();
+        }
+    </script>
+</body>
+</html>
